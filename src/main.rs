@@ -4,25 +4,33 @@ use std::io;
 use std::path::*;
 
 fn main() {
+    let paths = ["src/", "bin/"];
+    let mut buffer = String::new();
+    let stdin = io::stdin();
     let home = match home_dir() {
-        Some(home) => home,
+        Some(home) => home.join("projects/"),
         None => {
             panic!("No home directory found. oopsie daisy uh oh spaghettio");
         }
     };
-    let srcpath = home.join("projects/src/");
-    let binpath = home.join("projects/bin/");
-    println!("Project building in {:?}, {:?}", &srcpath, &binpath);
-    mkdir(&srcpath).unwrap();
-    mkdir(&binpath).unwrap();
+    println!("Hey, you should name the project:");
+    stdin.read_line(&mut buffer).unwrap();
+    let project_path = home.join(buffer.trim());
+    println!("Building Main.java in {}/src/", project_path.display());
+    for subfolder in paths {
+        make_directory(&project_path.join(subfolder)).unwrap();
+    }
+    makeproject(&project_path.join("src/"));
 }
 
-fn mkdir(path: &Path) -> Result<(), io::Error> {
-    println!("Building directory now.");
+fn make_directory(path: &Path) -> Result<(), io::Error> {
     fs::DirBuilder::new().recursive(true).create(path)
 }
 
-// fn make_project(proj_name: String) {
-//     srcpath = ""
-//     fs::File::create("{srcpath}/main");
-// }
+fn makeproject(path: &Path) {
+    fs::write(
+        path.join("Main.java"),
+        "class Main {\n \n public static void main(String[] args) {\n \n} \n}",
+    )
+    .ok();
+}
