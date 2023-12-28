@@ -8,7 +8,7 @@ fn main() {
     let stdin = io::stdin();
     println!("Hey, you should name the project:");
     stdin.read_line(&mut input).unwrap();
-    let project_path = path.join(input);
+    let project_path = path.join(input.trim());
 
     make_directory(&project_path).unwrap();
     makeproject(&project_path);
