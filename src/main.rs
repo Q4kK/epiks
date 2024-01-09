@@ -13,6 +13,7 @@ fn main() {
     let project_path = path.join(input.trim());
     let project_path_src = &project_path.join("src/");
 
+    check_for_dupe_dir(&project_path);
     make_directory(&project_path).unwrap(); //make project path
     make_directory(&project_path_src).unwrap(); //make project path with a src/ folder
     makeproject(&project_path_src); //make Main.java in src/ folder
@@ -47,7 +48,7 @@ fn check_for_dupe_dir(input_path: &Path) {
     let dirs_read = fs::read_dir("./").unwrap();
 
     for path in dirs_read {
-        if input_path == dirs_read. {
+        if input_path == path.unwrap().path() {
             panic!("Dir name already taken!\n");
         }
     }
