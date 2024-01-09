@@ -37,7 +37,6 @@ fn makeproject(path: &Path) {
     .unwrap();
 }
 
-<<<<<<< HEAD
 // make a funcion that checks against current existing directories
 // to see if the name of the directory conflicts
 fn check_for_dupe_dir(input_path: &Path) {
@@ -49,29 +48,3 @@ fn check_for_dupe_dir(input_path: &Path) {
         }
     }
 }
-=======
-fn makeshell() {
-    let shell_execute = if cfg!(target_os = "windows") {
-        // } else if cfg!(target_os = "linux") {
-        // } else if cfg!(target_os = "macos") {
-        // }
-    };
-}
-/*
-* contain nix flake that has java installed
-* launch a new terminal window with the old one running a bash shell
-*
-*/
-
-fn check_for_dupe_dir(input_path: &Path) {
-    let dirs_read = fs::read_dir("./").unwrap();
-
-    for path in dirs_read {
-        if input_path == dirs_read. {
-            panic!("Dir name already taken!\n");
-        }
-    }
-}
-// make a funcion that checks against current existing directories
-// to see if the name of the directory conflicts
->>>>>>> dbb9360 (WIP: read_dir comparing to path)
