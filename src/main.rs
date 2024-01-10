@@ -11,7 +11,6 @@ fn main() {
     println!("Hey, you should name the project:");
     stdin.read_line(&mut input).unwrap();
     let project_path = path.join(input.trim());
-    let project_path_src = &project_path.join("src/");
 
     check_for_dupe_dir(&project_path);
     make_directory(&project_path.join("src/"), &project_path.join("bin/")); //this is wayy too messy, need to fix later
