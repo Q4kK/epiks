@@ -3,6 +3,7 @@ use std::io;
 use std::path;
 use std::path::*;
 use std::process::Command;
+use std::process::Stdio;
 
 fn main() {
     let path = Path::new("./");
@@ -15,6 +16,7 @@ fn main() {
     check_for_dupe_dir(&project_path);
     make_directory(&project_path.join("src/"), &project_path.join("bin/")); //this is wayy too messy, need to fix later
     makeproject(&project_path.join("src/")); //make Main.java in src/ folder
+    launch_shell();
 }
 fn make_directory(src_path: &Path, bin_path: &Path) {
     fs::DirBuilder::new()
@@ -46,4 +48,11 @@ fn check_for_dupe_dir(input_path: &Path) {
             panic!("Dir name already taken!\n");
         }
     }
+}
+
+fn launch_shell() {
+    Command::new("./src/custom_shell.sh")
+        .stdout(Stdio::inherit())
+        .output()
+        .expect("Shell launch process failed, idk");
 }
